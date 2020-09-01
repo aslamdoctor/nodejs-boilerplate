@@ -57,4 +57,5 @@ Make required changes inside .env file and simply run
 - [ ] Implement full CRUD code for TODO List (Tasks)
 - [ ] Add image upload feature
 - [ ] Add data validations using Yup library
-- [ ] Implement app Testing procedures
+- [ ] Add error handling helper code
+- [ ] Implement app Testing procedures using Jest or Mocha
