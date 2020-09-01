@@ -2,11 +2,11 @@
 
 ## Directory Structure
 
-- ``/API`` - Used to store all API endpoints for testing purpose. These can be easily tested using VS Code's **REST Client** extension
-- ``/controlles`` - Store all controller files for different modules
-- ``/routes`` - Store all routes for different modules
-- ``/middlewares`` - Store different middleware files for different purposes
-- ``app.js`` - Base file that runs the NodeJS App
+- ***/API*** - Used to store all API endpoints for testing purpose. These can be easily tested using VS Code's **REST Client** extension
+- ***/controlles*** - Store all controller files for different modules
+- ***/routes*** - Store all routes for different modules
+- ***/middlewares*** - Store different middleware files for different purposes
+- ***app.js*** - Base file that runs the NodeJS App
 
 <br />
 
@@ -46,3 +46,15 @@ Make required changes inside .env file and simply run
 <br />
 
 > Make sure to remove all unnecessary packages from ***package.json*** file before deploying to production server
+
+<br />
+
+## Todo
+
+- [ ] Add Database configurations for MongoDB
+- [ ] Add Database configurations for MySQL
+- [ ] Add Email configurations inside .env file (use mailtrap.io)
+- [ ] Implement full CRUD code for TODO List (Tasks)
+- [ ] Add image upload feature
+- [ ] Add data validations using Yup library
+- [ ] Implement app Testing procedures
