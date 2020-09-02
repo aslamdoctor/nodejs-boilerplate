@@ -25,6 +25,7 @@
 - [morgan](https://www.npmjs.com/package/morgan) - HTTP request logger middleware for node.js
 - [nodemailer](https://www.npmjs.com/package/nodemailer) - Send e-mails from Node.js
 - [yup](https://www.npmjs.com/package/yup) - Yup is a JavaScript schema builder for value parsing and validation.
+- [mysql](https://www.npmjs.com/package/mysql) - This is a node.js driver for mysql. It is written in JavaScript, does not require compiling, and is 100% MIT licensed.
 
 <br />
 
