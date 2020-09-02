@@ -2,3 +2,28 @@
 # Get all tasks
 GET http://localhost:3333/tasks HTTP/1.1
 content-type: application/json
+
+###
+# Get single task
+GET http://localhost:3333/tasks/7 HTTP/1.1
+content-type: application/json
+
+###
+# Create new task
+POST http://localhost:3333/tasks HTTP/1.1
+content-type: application/json
+
+{
+  "task": "This is new task added from API"
+}
+
+###
+# Update task
+PUT http://localhost:3333/tasks HTTP/1.1
+content-type: application/json
+
+{
+  "id": "1",
+  "task": "This is updated Task",
+  "status": 0
+}

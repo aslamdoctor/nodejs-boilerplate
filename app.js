@@ -21,6 +21,9 @@ app.use(express.static(__dirname + '/public')); // folder to upload files
 
 global.__basedir = __dirname; // very important to define base directory of the project. this is useful while creating upload scripts
 
+// Connect Database
+const con = require('./db');
+
 // Routes
 app.get('/', (req, res) => {
 	console.log('Inside / route');

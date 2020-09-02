@@ -52,9 +52,9 @@ Make required changes inside .env file and simply run
 ## Todo
 
 - [ ] Add Database configurations for MongoDB
-- [ ] Add Database configurations for MySQL
+- [x] Add Database configurations for MySQL
 - [ ] Add Email configurations inside .env file (use mailtrap.io)
-- [ ] Implement full CRUD code for TODO List (Tasks)
+- [x] Implement full CRUD code for TODO List (Tasks)
 - [ ] Add image upload feature
 - [ ] Add data validations using Yup library
 - [ ] Add error handling helper code
