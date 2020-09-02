@@ -25,18 +25,32 @@ global.__basedir = __dirname; // very important to define base directory of the 
 const con = require('./db');
 
 // Routes
-app.get('/', (req, res) => {
-	console.log('Inside / route');
-	res.json({
-		message: 'Welcome 🙏',
-	});
+app.get('/', (req, res, next) => {
+	try {
+		console.log('Inside / route');
+		res.json({
+			message: 'Welcome 🙏',
+		});
+	} catch (err) {
+		next(err);
+	}
 });
 
 const tasks = require('./routes/taskRoute');
 app.use([tasks]); // you can add more routes in this array
 
+//An error handling middleware
+app.use((err, req, res, next) => {
+	console.log('🐞 Inside Error Handler');
+	if (res.headersSent) {
+		return next(err);
+	}
+	res.status(500);
+	res.json({ error: err });
+});
+
 // Run the server
 const port = process.env.PORT || 3000;
 app.listen(port, () =>
-	console.log(`app listening on http://localhost:${port}`)
+	console.log(`🐹 app listening on http://localhost:${port}`)
 );

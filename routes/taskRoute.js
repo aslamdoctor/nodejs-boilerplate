@@ -9,5 +9,6 @@ router.get('/tasks', testMiddleware, tasksController.getAll);
 router.get('/tasks/:id', tasksController.getOne);
 router.post('/tasks', tasksController.create);
 router.put('/tasks', tasksController.update);
+router.delete('/tasks', tasksController.delete);
 
 module.exports = router;

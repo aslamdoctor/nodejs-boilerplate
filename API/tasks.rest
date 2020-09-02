@@ -5,7 +5,7 @@ content-type: application/json
 
 ###
 # Get single task
-GET http://localhost:3333/tasks/7 HTTP/1.1
+GET http://localhost:3333/tasks/1 HTTP/1.1
 content-type: application/json
 
 ###
@@ -26,4 +26,13 @@ content-type: application/json
   "id": "1",
   "task": "This is updated Task",
   "status": 0
+}
+
+###
+# Delete task
+DELETE http://localhost:3333/tasks HTTP/1.1
+content-type: application/json
+
+{
+  "id": "5"
 }
