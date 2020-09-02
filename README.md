@@ -2,15 +2,16 @@
 
 ## Directory Structure
 
-- ***/API*** - Used to store all API endpoints for testing purpose. These can be easily tested using VS Code's **REST Client** extension
-- ***/controlles*** - Store all controller files for different modules
-- ***/routes*** - Store all routes for different modules
-- ***/middlewares*** - Store different middleware files for different purposes
-- ***app.js*** - Base file that runs the NodeJS App
+- **_/API_** - Used to store all API endpoints for testing purpose. These can be easily tested using VS Code's **REST Client** extension
+- **_/controlles_** - Store all controller files for different modules
+- **_/routes_** - Store all routes for different modules
+- **_/middlewares_** - Store different middleware files for different purposes
+- **_app.js_** - Base file that runs the NodeJS App
 
 <br />
 
 ## Packages Used
+
 - [axios](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs) - Optimized bcrypt in JavaScript with zero dependencies.
 - [cors](https://www.npmjs.com/package/cors) - CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
@@ -38,25 +39,26 @@
 ## Installation Steps
 
 Make required changes inside .env file and simply run
-``npm install``
+`npm install`
 
-- Run development server - ``npm run dev``
-- Run production server - ``npm run start``
-
+- Run development server - `npm run dev`
+- Run production server - `npm run start`
 
 <br />
 
-> Make sure to remove all unnecessary packages from ***package.json*** file before deploying to production server
+> Make sure to remove all unnecessary packages from **_package.json_** file before deploying to production server
 
 <br />
 
 ## Todo
 
-- [ ] Add Database configurations for MongoDB
+- [ ] Use Sequelize ORM to access database
 - [x] Add Database configurations for MySQL
-- [ ] Add Email configurations inside .env file (use mailtrap.io)
+- [ ] Add Database configurations for MongoDB
+- [ ] Implement Email feature (use mailtrap.io)
 - [x] Implement full CRUD code for TODO List (Tasks)
-- [ ] Add image upload feature
+- [x] Add image upload feature
 - [ ] Add data validations using Yup library
+- [ ] Implement Auth features
 - [x] Add error handling helper code
 - [ ] Implement app Testing procedures using Jest or Mocha

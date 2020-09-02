@@ -29,10 +29,12 @@ app.get('/', (req, res, next) => {
 	try {
 		console.log('Inside / route');
 		res.json({
+			status: 'success',
 			message: 'Welcome 🙏',
 		});
 	} catch (err) {
 		next(err);
+		return;
 	}
 });
 
@@ -42,11 +44,12 @@ app.use([tasks]); // you can add more routes in this array
 //An error handling middleware
 app.use((err, req, res, next) => {
 	console.log('🐞 Inside Error Handler');
-	if (res.headersSent) {
-		return next(err);
-	}
-	res.status(500);
-	res.json({ error: err });
+
+	err.statusCode = err.statusCode || 500;
+	err.status = err.status || 'error';
+
+	res.status(err.statusCode).json({ status: err.status, message: err.message });
+	return;
 });
 
 // Run the server
