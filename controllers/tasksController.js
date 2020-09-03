@@ -1,6 +1,7 @@
-// Connect Database
+require('dotenv').config();
 const { con } = require('../db');
 const utils = require('../utils');
+const nodemailer = require('nodemailer');
 var formidable = require('formidable');
 var fs = require('fs');
 
@@ -99,7 +100,7 @@ module.exports.delete = (req, res, next) => {
 };
 
 // Update Picture
-module.exports.update_picture = (req, res, next) => {
+module.exports.updatePicture = (req, res, next) => {
 	var form = new formidable.IncomingForm();
 	form.parse(req, (err, fields, files) => {
 		const id = fields.id;
@@ -144,5 +145,49 @@ module.exports.update_picture = (req, res, next) => {
 				});
 			});
 		}
+	});
+};
+
+// Send email
+module.exports.sendEmail = (req, res, next) => {
+	const id = req.body.id;
+	con.query(`SELECT * FROM tasks WHERE id='${id}'`, function (
+		err,
+		result,
+		fields
+	) {
+		if (err) {
+			next(err);
+			return;
+		}
+
+		var transporter = nodemailer.createTransport({
+			host: process.env.MAIL_HOST,
+			port: process.env.MAIL_POST,
+			auth: {
+				user: process.env.MAIL_AUTH_USER,
+				pass: process.env.MAIL_AUTH_PASS,
+			},
+		});
+
+		var mailOptions = {
+			from: process.env.MAIL_FROM,
+			to: 'test@example.com',
+			subject: 'Test email',
+			html: `Hi there! <br/><br/>
+			This is just a test email from boilerplate code<br/><br/>
+			Your task is: ${result[0].task}<br/><br/>
+			Thank You.`,
+		};
+		transporter.sendMail(mailOptions, (err) => {
+			if (err) {
+				next(err);
+				return;
+			}
+			res.json({
+				status: 'success',
+				result: result,
+			});
+		});
 	});
 };

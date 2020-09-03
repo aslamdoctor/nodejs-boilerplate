@@ -10,7 +10,7 @@ var con = mysql.createConnection({
 
 con.connect(function (err) {
 	if (err) {
-		next(err);
+		console.log(err);
 		return;
 	}
 	console.log('💾 MySQL Server Connected!');

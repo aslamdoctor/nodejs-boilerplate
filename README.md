@@ -55,7 +55,7 @@ Make required changes inside .env file and simply run
 - [ ] Use Sequelize ORM to access database
 - [x] Add Database configurations for MySQL
 - [ ] Add Database configurations for MongoDB
-- [ ] Implement Email feature (use mailtrap.io)
+- [x] Implement Email feature (use mailtrap.io)
 - [x] Implement full CRUD code for TODO List (Tasks)
 - [x] Add image upload feature
 - [ ] Add data validations using Yup library

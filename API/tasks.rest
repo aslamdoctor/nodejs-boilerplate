@@ -52,3 +52,13 @@ Content-Type: image/jpg
 
 < /home/aslam/Pictures/Me/me.jpg
 --MyBoundary--
+
+
+###
+# Send emaill
+POST http://localhost:3333/tasks/send_email HTTP/1.1
+content-type: application/json
+
+{
+  "id": "1"
+}
