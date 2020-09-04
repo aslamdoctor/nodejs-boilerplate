@@ -44,7 +44,7 @@ Make required changes inside .env file and simply run
 - Run development server - `npm run dev`
 - Run production server - `npm run start`
 
-And then use any files at **/API/*.rest** inside [VS Code](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) using REST Client extension to test the API endpoints. All the endpoints are listed in these ***.rest*** files.
+And then use any files at **/API/*.rest** inside VS Code using [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension to test the API endpoints. All the endpoints are listed in these ***.rest*** files.
 
 or simply use Postman tool to test all the API endpoints.
 
