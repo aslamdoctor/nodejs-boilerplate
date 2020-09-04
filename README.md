@@ -1,4 +1,4 @@
-# NodeJS Project Boilerplate
+# NodeJS Project Boilerplate - MySQL DB
 
 ## Directory Structure
 
