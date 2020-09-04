@@ -42,6 +42,7 @@ module.exports.getOne = (req, res, next) => {
 // Create
 module.exports.create = (req, res, next) => {
 	const task = req.body.task;
+
 	var sql = `INSERT INTO tasks(task) VALUES('${task}')`;
 
 	con.query(sql, function (err, result) {
@@ -64,6 +65,7 @@ module.exports.update = (req, res, next) => {
 	const id = req.body.id;
 	const task = req.body.task;
 	const status = req.body.status;
+
 	var sql = `UPDATE tasks SET task='${task}', status='${status}', date_updated=NOW() WHERE id='${id}'`;
 
 	con.query(sql, function (err, result) {
@@ -105,45 +107,51 @@ module.exports.updatePicture = (req, res, next) => {
 	form.parse(req, (err, fields, files) => {
 		const id = fields.id;
 
-		if (
-			files.filetoupload.name &&
-			!files.filetoupload.name.match(/\.(jpg|jpeg|png)$/i)
-		) {
-			var err = new Error('Please select .jpg or .png file only');
-			next(err);
-			return;
-		} else if (files.filetoupload.size > 2097152) {
-			var err = new Error('Please select file size < 2mb');
+		if (!id) {
+			var err = new Error('ID not found.');
 			next(err);
 			return;
 		} else {
-			var newFileName = utils.timestampFilename(files.filetoupload.name);
+			if (
+				files.filetoupload.name &&
+				!files.filetoupload.name.match(/\.(jpg|jpeg|png)$/i)
+			) {
+				var err = new Error('Please select .jpg or .png file only');
+				next(err);
+				return;
+			} else if (files.filetoupload.size > 2097152) {
+				var err = new Error('Please select file size < 2mb');
+				next(err);
+				return;
+			} else {
+				var newFileName = utils.timestampFilename(files.filetoupload.name);
 
-			var oldpath = files.filetoupload.path;
-			var newpath = __basedir + '/public/uploads/pictures/' + newFileName;
-			fs.rename(oldpath, newpath, function (err) {
-				if (err) {
-					next(err);
-					return;
-				}
-
-				var sql = `UPDATE tasks SET picture='${newFileName}', date_updated=NOW() WHERE id='${id}'`;
-
-				con.query(sql, function (err, result) {
+				var oldpath = files.filetoupload.path;
+				var newpath = __basedir + '/public/uploads/pictures/' + newFileName;
+				fs.rename(oldpath, newpath, function (err) {
 					if (err) {
 						next(err);
 						return;
 					}
 
-					res.json({
-						status: 'success',
-						result: {
-							newFileName: newFileName,
-							affectedRows: result.affectedRows,
-						},
+					var sql = `UPDATE tasks SET picture='${newFileName}', date_updated=NOW() WHERE id='${id}'`;
+
+					con.query(sql, function (err, result) {
+						if (err) {
+							next(err);
+							return;
+						}
+
+						res.json({
+							status: 'success',
+							result: {
+								newFileName: newFileName,
+								affectedRows: result.affectedRows,
+							},
+						});
 					});
 				});
-			});
+			}
 		}
 	});
 };

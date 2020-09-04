@@ -14,7 +14,7 @@ POST http://localhost:3333/tasks HTTP/1.1
 content-type: application/json
 
 {
-  "task": "This is new task added from API"
+  "task": "This is new task 2"
 }
 
 ###

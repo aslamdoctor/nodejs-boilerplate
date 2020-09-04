@@ -44,6 +44,10 @@ Make required changes inside .env file and simply run
 - Run development server - `npm run dev`
 - Run production server - `npm run start`
 
+And then use any files at **/API/*.rest** inside [VS Code](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) using REST Client extension to test the API endpoints. All the endpoints are listed in these ***.rest*** files.
+
+or simply use Postman tool to test all the API endpoints.
+
 <br />
 
 > Make sure to remove all unnecessary packages from **_package.json_** file before deploying to production server
@@ -52,13 +56,11 @@ Make required changes inside .env file and simply run
 
 ## Todo
 
-- [ ] Use Sequelize ORM to access database
 - [x] Add Database configurations for MySQL
-- [ ] Add Database configurations for MongoDB
 - [x] Implement Email feature (use mailtrap.io)
 - [x] Implement full CRUD code for TODO List (Tasks)
 - [x] Add image upload feature
-- [ ] Add data validations using Yup library
+- [x] Add data validations using Yup library
 - [ ] Implement Auth features
 - [x] Add error handling helper code
 - [ ] Implement app Testing procedures using Jest or Mocha
