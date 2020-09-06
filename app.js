@@ -38,12 +38,13 @@ app.get('/', (req, res, next) => {
 	}
 });
 
-const tasks = require('./routes/taskRoute');
-app.use([tasks]); // you can add more routes in this array
+const taskRoute = require('./routes/taskRoute');
+const userRoute = require('./routes/userRoute');
+app.use([taskRoute, userRoute]); // you can add more routes in this array
 
 //An error handling middleware
 app.use((err, req, res, next) => {
-	console.log('🐞 Inside Error Handler');
+	console.log('🐞 Error Handler');
 
 	err.statusCode = err.statusCode || 500;
 	err.status = err.status || 'error';

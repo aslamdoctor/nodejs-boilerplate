@@ -3,6 +3,7 @@
 ## Directory Structure
 
 - **_/API_** - Used to store all API endpoints for testing purpose. These can be easily tested using VS Code's **REST Client** extension
+- **_/DB_** - Contains the sample mysql database SQL file to start the project
 - **_/controlles_** - Store all controller files for different modules
 - **_/routes_** - Store all routes for different modules
 - **_/middlewares_** - Store different middleware files for different purposes
@@ -61,6 +62,7 @@ or simply use Postman tool to test all the API endpoints.
 - [x] Implement full CRUD code for TODO List (Tasks)
 - [x] Add image upload feature
 - [x] Add data validations using Yup library
-- [ ] Implement Auth features
+- [x] Implement Auth features
 - [x] Add error handling helper code
 - [ ] Implement app Testing procedures using Jest or Mocha
+- [ ] Add middleware for 404 page
