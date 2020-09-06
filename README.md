@@ -65,4 +65,4 @@ or simply use Postman tool to test all the API endpoints.
 - [x] Implement Auth features
 - [x] Add error handling helper code
 - [ ] Implement app Testing procedures using Jest or Mocha
-- [ ] Add middleware for 404 page
+- [x] Add middleware for 404 page

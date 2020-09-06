@@ -42,6 +42,13 @@ const taskRoute = require('./routes/taskRoute');
 const userRoute = require('./routes/userRoute');
 app.use([taskRoute, userRoute]); // you can add more routes in this array
 
+//404 error
+app.get('*', function (req, res) {
+	res.status(404).json({
+		message: 'What?? 🙅',
+	});
+});
+
 //An error handling middleware
 app.use((err, req, res, next) => {
 	console.log('🐞 Error Handler');
