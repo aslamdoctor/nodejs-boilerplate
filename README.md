@@ -31,6 +31,10 @@
 
 <br />
 
+> Some of these packages are not used in the project at all. But I included them just for my own reference so I can use them when needed.
+
+<br />
+
 ## Dev Dependancies
 
 - [nodemon](https://www.npmjs.com/package/nodemon) - nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
