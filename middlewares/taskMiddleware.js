@@ -24,8 +24,7 @@ module.exports.validationCreate = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -54,8 +53,7 @@ module.exports.validationUpdate = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -64,15 +62,13 @@ module.exports.isTaskExistsCreate = (req, res, next) => {
 	let query = `SELECT * FROM tasks WHERE task='${req.body.task}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
 			let err = new Error('Task already exists');
 			err.field = 'task';
-			next(err);
-			return;
+			return next(err);
 		} else {
 			next();
 		}
@@ -84,15 +80,13 @@ module.exports.isTaskExistsUpdate = (req, res, next) => {
 	let query = `SELECT * FROM tasks WHERE task='${req.body.task}' AND id<>'${req.body.id}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
 			let err = new Error('Task already exists');
 			err.field = 'task';
-			next(err);
-			return;
+			return next(err);
 		} else {
 			next();
 		}
@@ -120,7 +114,6 @@ module.exports.validationDelete = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };

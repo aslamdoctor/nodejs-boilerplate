@@ -9,8 +9,7 @@ var fs = require('fs');
 module.exports.getAll = (req, res, next) => {
 	con.query('SELECT * FROM tasks', function (err, result, fields) {
 		if (err) {
-			next(err);
-			return;
+			return ext(err);
 		}
 		res.json({
 			status: 'success',
@@ -28,10 +27,8 @@ module.exports.getOne = (req, res, next) => {
 		fields
 	) {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
-
 		res.json({
 			status: 'success',
 			result: result,
@@ -47,9 +44,9 @@ module.exports.create = (req, res, next) => {
 
 	con.query(sql, function (err, result) {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
+
 		res.json({
 			status: 'success',
 			result: {
@@ -70,8 +67,7 @@ module.exports.update = (req, res, next) => {
 
 	con.query(sql, function (err, result) {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 		res.json({
 			status: 'success',
@@ -89,8 +85,7 @@ module.exports.delete = (req, res, next) => {
 
 	con.query(sql, function (err, result) {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 		res.json({
 			status: 'success',
@@ -109,20 +104,17 @@ module.exports.updatePicture = (req, res, next) => {
 
 		if (!id) {
 			var err = new Error('ID not found.');
-			next(err);
-			return;
+			return next(err);
 		} else {
 			if (
 				files.filetoupload.name &&
 				!files.filetoupload.name.match(/\.(jpg|jpeg|png)$/i)
 			) {
 				var err = new Error('Please select .jpg or .png file only');
-				next(err);
-				return;
+				return next(err);
 			} else if (files.filetoupload.size > 2097152) {
 				var err = new Error('Please select file size < 2mb');
-				next(err);
-				return;
+				return next(err);
 			} else {
 				var newFileName = utils.timestampFilename(files.filetoupload.name);
 
@@ -130,16 +122,14 @@ module.exports.updatePicture = (req, res, next) => {
 				var newpath = __basedir + '/public/uploads/pictures/' + newFileName;
 				fs.rename(oldpath, newpath, function (err) {
 					if (err) {
-						next(err);
-						return;
+						return next(err);
 					}
 
 					var sql = `UPDATE tasks SET picture='${newFileName}', date_updated=NOW() WHERE id='${id}'`;
 
 					con.query(sql, function (err, result) {
 						if (err) {
-							next(err);
-							return;
+							return next(err);
 						}
 
 						res.json({
@@ -165,8 +155,7 @@ module.exports.sendEmail = (req, res, next) => {
 		fields
 	) {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		var transporter = nodemailer.createTransport({
@@ -189,8 +178,7 @@ module.exports.sendEmail = (req, res, next) => {
 		};
 		transporter.sendMail(mailOptions, (err) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 			res.json({
 				status: 'success',

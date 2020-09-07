@@ -33,8 +33,7 @@ module.exports.validationSignup = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -44,15 +43,13 @@ module.exports.isUserExistsSignup = (req, res, next) => {
 	let query = `SELECT * FROM users WHERE email='${req.body.email}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
 			let err = new Error('User already registered');
 			err.field = 'email';
-			next(err);
-			return;
+			return next(err);
 		} else {
 			next();
 		}
@@ -89,8 +86,7 @@ module.exports.validateLogin = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -107,8 +103,7 @@ module.exports.authenticateToken = (req, res, next) => {
 				if (err) {
 					let err = new Error('Unauthorized');
 					err.field = 'login';
-					next(err);
-					return;
+					return next(err);
 				} else {
 					req.user = decoded;
 					return next();
@@ -118,8 +113,7 @@ module.exports.authenticateToken = (req, res, next) => {
 	} else {
 		let err = new Error('Unauthorized');
 		err.field = 'login';
-		next(err);
-		return;
+		return next(err);
 	}
 };
 
@@ -156,8 +150,7 @@ module.exports.validationUpdateProfile = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -167,15 +160,13 @@ module.exports.isUserExistsUpdate = (req, res, next) => {
 	let query = `SELECT * FROM users WHERE email='${req.body.email}' AND id<>'${req.user.id}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
 			let err = new Error('Email already registered.');
 			err.field = 'email';
-			next(err);
-			return;
+			return next(err);
 		} else {
 			next();
 		}
@@ -217,8 +208,7 @@ module.exports.validationChangePassword = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -248,8 +238,7 @@ module.exports.validationForgotPassword = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -261,8 +250,7 @@ module.exports.isEmailRegistered = (req, res, next) => {
 	let query = `SELECT * FROM users WHERE email='${req.body.email}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
@@ -270,8 +258,7 @@ module.exports.isEmailRegistered = (req, res, next) => {
 		} else {
 			let err = new Error('No user registered with this email.');
 			err.field = 'email';
-			next(err);
-			return;
+			return next(err);
 		}
 	});
 };
@@ -313,8 +300,7 @@ module.exports.validationResetPassword = (req, res, next) => {
 			next();
 		})
 		.catch(function (err) {
-			next(err);
-			return;
+			return next(err);
 		});
 };
 
@@ -326,8 +312,7 @@ module.exports.isResetTokenValid = (req, res, next) => {
 	let query = `SELECT * FROM users WHERE token='${req.body.token}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
@@ -335,8 +320,7 @@ module.exports.isResetTokenValid = (req, res, next) => {
 		} else {
 			let err = new Error('Invalid reset link or token');
 			err.field = 'email';
-			next(err);
-			return;
+			return next(err);
 		}
 	});
 };

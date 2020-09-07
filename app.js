@@ -33,8 +33,7 @@ app.get('/', (req, res, next) => {
 			message: 'Welcome 🙏',
 		});
 	} catch (err) {
-		next(err);
-		return;
+		return next(err);
 	}
 });
 
@@ -61,7 +60,6 @@ app.use((err, req, res, next) => {
 		message: err.message,
 		err: err,
 	});
-	return;
 });
 
 // Run the server

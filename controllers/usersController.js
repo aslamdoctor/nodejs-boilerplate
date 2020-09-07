@@ -22,8 +22,7 @@ module.exports.signUp = (req, res, next) => {
 
 	con.query(sql, function (err, result) {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		// Send the email
@@ -48,8 +47,7 @@ module.exports.signUp = (req, res, next) => {
 		};
 		transporter.sendMail(mailOptions, (err) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 			return res.json({
 				status: 'success',
@@ -69,8 +67,7 @@ module.exports.signUpVerify = (req, res, next) => {
 		let query = `SELECT * FROM users WHERE token='${token}' AND is_verified='0'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 
 			if (result.length > 0) {
@@ -91,15 +88,13 @@ module.exports.signUpVerify = (req, res, next) => {
 			} else {
 				let err = new Error('Invalid token provided or user already verified');
 				err.field = 'token';
-				next(err);
-				return;
+				return next(err);
 			}
 		});
 	} else {
 		let err = new Error('Token not available');
 		err.field = 'token';
-		next(err);
-		return;
+		return next(err);
 	}
 };
 
@@ -111,8 +106,7 @@ module.exports.login = (req, res, next) => {
 	let query = `SELECT * FROM users WHERE email='${email}' AND is_verified='1'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		if (result.length > 0) {
@@ -136,15 +130,13 @@ module.exports.login = (req, res, next) => {
 				} else {
 					let err = new Error('Invalid email or password entered');
 					err.field = 'token';
-					next(err);
-					return;
+					return next(err);
 				}
 			});
 		} else {
 			let err = new Error('Invalid email or password entered');
 			err.field = 'token';
-			next(err);
-			return;
+			return next(err);
 		}
 	});
 };
@@ -161,8 +153,7 @@ module.exports.getLoggedInUser = (req, res, next) => {
 				if (err) {
 					let err = new Error('Unauthorized');
 					err.field = 'login';
-					next(err);
-					return;
+					return next(err);
 				} else {
 					return res.json({ status: 'success', user: decoded });
 				}
@@ -171,8 +162,7 @@ module.exports.getLoggedInUser = (req, res, next) => {
 	} else {
 		let err = new Error('Unauthorized');
 		err.field = 'login';
-		next(err);
-		return;
+		return next(err);
 	}
 };
 
@@ -190,8 +180,7 @@ module.exports.updateProfile = (req, res, next) => {
 									WHERE id='${id}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 
 			return res.json({
@@ -202,8 +191,7 @@ module.exports.updateProfile = (req, res, next) => {
 	} else {
 		let err = new Error('User id not found');
 		err.field = 'id';
-		next(err);
-		return;
+		return next(err);
 	}
 };
 
@@ -221,8 +209,7 @@ module.exports.changePassword = (req, res, next) => {
 									WHERE id='${id}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 
 			return res.json({
@@ -233,8 +220,7 @@ module.exports.changePassword = (req, res, next) => {
 	} else {
 		let err = new Error('User id not found');
 		err.field = 'id';
-		next(err);
-		return;
+		return next(err);
 	}
 };
 
@@ -248,8 +234,7 @@ module.exports.forgotPassword = (req, res, next) => {
 									WHERE email='${email}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
-			next(err);
-			return;
+			return next(err);
 		}
 
 		// Send the email
@@ -275,8 +260,7 @@ module.exports.forgotPassword = (req, res, next) => {
 		};
 		transporter.sendMail(mailOptions, (err) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 			return res.json({
 				status: 'success',
@@ -294,8 +278,7 @@ module.exports.forgotPasswordVerify = (req, res, next) => {
 		let query = `SELECT * FROM users WHERE token='${token}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 
 			if (result.length > 0) {
@@ -306,15 +289,13 @@ module.exports.forgotPasswordVerify = (req, res, next) => {
 			} else {
 				let err = new Error('Invalid token provided');
 				err.field = 'token';
-				next(err);
-				return;
+				return next(err);
 			}
 		});
 	} else {
 		let err = new Error('Token not available');
 		err.field = 'token';
-		next(err);
-		return;
+		return next(err);
 	}
 };
 
@@ -332,8 +313,7 @@ module.exports.resetPassword = (req, res, next) => {
 									WHERE token='${token}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
-				next(err);
-				return;
+				return next(err);
 			}
 
 			return res.json({
@@ -344,7 +324,6 @@ module.exports.resetPassword = (req, res, next) => {
 	} else {
 		let err = new Error('Token not available');
 		err.field = 'token';
-		next(err);
-		return;
+		return next(err);
 	}
 };
