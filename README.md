@@ -45,7 +45,7 @@ Make required changes inside .env file and simply run
 - Run development server - `npm run dev`
 - Run production server - `npm run start`
 
-And then use any files at **/API/*.rest** inside VS Code using [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension to test the API endpoints. All the endpoints are listed in these ***.rest*** files.
+And then use any files at **/API/\*.rest** inside VS Code using [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension to test the API endpoints. All the endpoints are listed in these **_.rest_** files.
 
 or simply use Postman tool to test all the API endpoints.
 
@@ -55,14 +55,55 @@ or simply use Postman tool to test all the API endpoints.
 
 <br />
 
-## Todo
+## Features
 
-- [x] Add Database configurations for MySQL
-- [x] Implement Email feature (use mailtrap.io)
-- [x] Implement full CRUD code for TODO List (Tasks)
-- [x] Add image upload feature
-- [x] Add data validations using Yup library
-- [x] Implement Auth features
-- [x] Add error handling helper code
-- [ ] Implement app Testing procedures using Jest or Mocha
-- [x] Add middleware for 404 page
+- Database configurations using MySQL
+- Implementation of Email script (using mailtrap.io)
+- Full CRUD code using TODO List
+- Image upload feature implementation
+- Data validations using Yup library
+- Auth features that includes Signup, Login, Forgot Password, Update Profile, Change Password
+- Proper error handling using Middlewares
+- API security using cors and helmet packages
+
+<br />
+
+## API Endpoints
+
+GET http://localhost:3333/tasks [ get all tasks ]
+
+GET http://localhost:3333/tasks/1 [ get single task ]
+
+POST http://localhost:3333/tasks [ create new task ]
+
+PUT http://localhost:3333/tasks [ update task ]
+
+DELETE http://localhost:3333/tasks [ delete task ]
+
+POST http://localhost:3333/tasks/update_picture [ update picture ]
+
+POST http://localhost:3333/tasks/send_email [ send test email ]
+
+POST http://localhost:3333/user/signup [ sign up ]
+
+GET http://localhost:3333/user/signup/verify/d8f7e98b395974af9cb206baa5a6a210 [ verify signup link ]
+
+POST http://localhost:3333/user/login [ log in ]
+
+GET http://localhost:3333/user [ get logged in user ]
+
+POST http://localhost:3333/user/update_profile [ update profile ]
+
+POST http://localhost:3333/user/change_password [ change password ]
+
+POST http://localhost:3333/user/forgot_password [ forgot password ]
+
+GET http://localhost:3333/user/forgot_password/verify/d5d5199258fed2cc151d2bb3e18f589a [ verify forgot password link ]
+
+POST http://localhost:3333/user/reset_password [ reset password ]
+
+<br />
+
+## TODO
+
+- [ ] Add tasks here

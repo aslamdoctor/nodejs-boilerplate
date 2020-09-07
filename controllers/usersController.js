@@ -186,7 +186,7 @@ module.exports.updateProfile = (req, res, next) => {
 		var email = req.body.email;
 
 		let query = `UPDATE users 
-									SET first_name='${first_name}', last_name='${last_name}', bio='${bio}', email='${email}' 
+									SET first_name='${first_name}', last_name='${last_name}', bio='${bio}', email='${email}', date_updated=NOW()  
 									WHERE id='${id}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
@@ -217,7 +217,7 @@ module.exports.changePassword = (req, res, next) => {
 		const new_password = hash;
 
 		let query = `UPDATE users 
-									SET password='${new_password}' 
+									SET password='${new_password}', date_updated=NOW() 
 									WHERE id='${id}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
@@ -244,7 +244,7 @@ module.exports.forgotPassword = (req, res, next) => {
 	var token = crypto.randomBytes(16).toString('hex');
 
 	let query = `UPDATE users 
-									SET token='${token}' 
+									SET token='${token}', date_updated=NOW() 
 									WHERE email='${email}'`;
 	con.query(query, (err, result, fields) => {
 		if (err) {
@@ -328,7 +328,7 @@ module.exports.resetPassword = (req, res, next) => {
 		const new_password = hash;
 
 		let query = `UPDATE users 
-									SET password='${new_password}', token='' 
+									SET password='${new_password}', token='', date_updated=NOW() 
 									WHERE token='${token}'`;
 		con.query(query, (err, result, fields) => {
 			if (err) {
