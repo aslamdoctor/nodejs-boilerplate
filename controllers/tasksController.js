@@ -9,7 +9,7 @@ var fs = require('fs');
 module.exports.getAll = (req, res, next) => {
 	con.query('SELECT * FROM tasks', function (err, result, fields) {
 		if (err) {
-			return ext(err);
+			return next(err);
 		}
 		res.json({
 			status: 'success',

@@ -10,9 +10,7 @@ app.use(helmet());
 app.use(morgan('tiny'));
 app.use(
 	cors({
-		/* origin: process.env.CLIENT_URL,
-		optionsSuccessStatus: 200, */
-		// some legacy browsers (IE11, various SmartTVs) choke on 204
+		//origin: process.env.CLIENT_URL
 	})
 );
 app.use(express.json());
@@ -27,7 +25,6 @@ const con = require('./db');
 // Routes
 app.get('/', (req, res, next) => {
 	try {
-		console.log('Inside / route');
 		res.json({
 			status: 'success',
 			message: 'Welcome 🙏',
