@@ -21,7 +21,7 @@ module.exports.getAll = (req, res, next) => {
 // Get One
 module.exports.getOne = (req, res, next) => {
 	const id = req.params.id;
-	con.query(`SELECT * FROM tasks WHERE id='${id}'`, function (
+	con.query(`SELECT * FROM tasks WHERE id=?`, [id], function (
 		err,
 		result,
 		fields
@@ -40,9 +40,9 @@ module.exports.getOne = (req, res, next) => {
 module.exports.create = (req, res, next) => {
 	const task = req.body.task;
 
-	var sql = `INSERT INTO tasks(task) VALUES('${task}')`;
+	var sql = `INSERT INTO tasks(task) VALUES(?)`;
 
-	con.query(sql, function (err, result) {
+	con.query(sql, [task], function (err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -63,9 +63,9 @@ module.exports.update = (req, res, next) => {
 	const task = req.body.task;
 	const status = req.body.status;
 
-	var sql = `UPDATE tasks SET task='${task}', status='${status}', date_updated=NOW() WHERE id='${id}'`;
+	var sql = `UPDATE tasks SET task=?, status=?, date_updated=NOW() WHERE id=?`;
 
-	con.query(sql, function (err, result) {
+	con.query(sql, [task, status, id], function (err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -81,9 +81,9 @@ module.exports.update = (req, res, next) => {
 // Delete
 module.exports.delete = (req, res, next) => {
 	const id = req.body.id;
-	var sql = `DELETE FROM tasks WHERE id='${id}'`;
+	var sql = `DELETE FROM tasks WHERE id=?`;
 
-	con.query(sql, function (err, result) {
+	con.query(sql, [id], function (err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -125,9 +125,9 @@ module.exports.updatePicture = (req, res, next) => {
 						return next(err);
 					}
 
-					var sql = `UPDATE tasks SET picture='${newFileName}', date_updated=NOW() WHERE id='${id}'`;
+					var sql = `UPDATE tasks SET picture=?, date_updated=NOW() WHERE id=?`;
 
-					con.query(sql, function (err, result) {
+					con.query(sql, [newFileName, id], function (err, result) {
 						if (err) {
 							return next(err);
 						}
@@ -149,7 +149,7 @@ module.exports.updatePicture = (req, res, next) => {
 // Send email
 module.exports.sendEmail = (req, res, next) => {
 	const id = req.body.id;
-	con.query(`SELECT * FROM tasks WHERE id='${id}'`, function (
+	con.query(`SELECT * FROM tasks WHERE id=?`, id, function (
 		err,
 		result,
 		fields

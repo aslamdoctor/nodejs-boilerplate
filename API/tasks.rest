@@ -5,7 +5,7 @@ content-type: application/json
 
 ###
 # Get single task
-GET http://localhost:3333/tasks/1 HTTP/1.1
+GET http://localhost:3333/tasks/24 HTTP/1.1
 content-type: application/json
 
 ###
@@ -14,7 +14,7 @@ POST http://localhost:3333/tasks HTTP/1.1
 content-type: application/json
 
 {
-  "task": "This is new task 111"
+  "task": "This is new task 22"
 }
 
 ###

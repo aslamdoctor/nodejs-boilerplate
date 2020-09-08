@@ -59,8 +59,8 @@ module.exports.validationUpdate = (req, res, next) => {
 
 // Check if record exists - Create
 module.exports.isTaskExistsCreate = (req, res, next) => {
-	let query = `SELECT * FROM tasks WHERE task='${req.body.task}'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM tasks WHERE task=?`;
+	con.query(query, [req.body.task], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
@@ -77,8 +77,8 @@ module.exports.isTaskExistsCreate = (req, res, next) => {
 
 // Check if record exists - Update
 module.exports.isTaskExistsUpdate = (req, res, next) => {
-	let query = `SELECT * FROM tasks WHERE task='${req.body.task}' AND id<>'${req.body.id}'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM tasks WHERE task=? AND id<>?`;
+	con.query(query, [req.body.task, req.body.id], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}

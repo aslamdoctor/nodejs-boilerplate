@@ -18,9 +18,9 @@ module.exports.signUp = (req, res, next) => {
 	const token = crypto.randomBytes(16).toString('hex');
 
 	var sql = `INSERT INTO users(email, password, token) 
-              VALUES('${email}', '${password}', '${token}')`;
+              VALUES(?, ?, ?)`;
 
-	con.query(sql, function (err, result) {
+	con.query(sql, [email, password, token], function (err, result) {
 		if (err) {
 			return next(err);
 		}
@@ -64,8 +64,8 @@ module.exports.signUp = (req, res, next) => {
 module.exports.signUpVerify = (req, res, next) => {
 	const token = req.params.token;
 	if (token) {
-		let query = `SELECT * FROM users WHERE token='${token}' AND is_verified='0'`;
-		con.query(query, (err, result, fields) => {
+		let query = `SELECT * FROM users WHERE token=? AND is_verified='0'`;
+		con.query(query, [token], (err, result, fields) => {
 			if (err) {
 				return next(err);
 			}
@@ -73,7 +73,8 @@ module.exports.signUpVerify = (req, res, next) => {
 			if (result.length > 0) {
 				// update record to remove token and set status as verified
 				con.query(
-					`UPDATE users set token='', is_verified='1' WHERE id='${result[0].id}'`,
+					`UPDATE users set token='', is_verified='1' WHERE id=?`,
+					[result[0].id],
 					(errUpdate, resultUpdate, fieldsUpdate) => {
 						if (errUpdate) {
 							next(errUpdate);
@@ -103,8 +104,8 @@ module.exports.login = (req, res, next) => {
 	const email = req.body.email;
 	const password = req.body.password;
 
-	let query = `SELECT * FROM users WHERE email='${email}' AND is_verified='1'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM users WHERE email=? AND is_verified='1'`;
+	con.query(query, [email], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
@@ -176,18 +177,22 @@ module.exports.updateProfile = (req, res, next) => {
 		var email = req.body.email;
 
 		let query = `UPDATE users 
-									SET first_name='${first_name}', last_name='${last_name}', bio='${bio}', email='${email}', date_updated=NOW()  
-									WHERE id='${id}'`;
-		con.query(query, (err, result, fields) => {
-			if (err) {
-				return next(err);
-			}
+									SET first_name=?, last_name=?, bio=?, email=?, date_updated=NOW()  
+									WHERE id=?`;
+		con.query(
+			query,
+			[first_name, last_name, bio, email, id],
+			(err, result, fields) => {
+				if (err) {
+					return next(err);
+				}
 
-			return res.json({
-				status: 'success',
-				result: result,
-			});
-		});
+				return res.json({
+					status: 'success',
+					result: result,
+				});
+			}
+		);
 	} else {
 		let err = new Error('User id not found');
 		err.field = 'id';
@@ -205,9 +210,9 @@ module.exports.changePassword = (req, res, next) => {
 		const new_password = hash;
 
 		let query = `UPDATE users 
-									SET password='${new_password}', date_updated=NOW() 
-									WHERE id='${id}'`;
-		con.query(query, (err, result, fields) => {
+									SET password=?, date_updated=NOW() 
+									WHERE id=?`;
+		con.query(query, [new_password, id], (err, result, fields) => {
 			if (err) {
 				return next(err);
 			}
@@ -230,9 +235,9 @@ module.exports.forgotPassword = (req, res, next) => {
 	var token = crypto.randomBytes(16).toString('hex');
 
 	let query = `UPDATE users 
-									SET token='${token}', date_updated=NOW() 
-									WHERE email='${email}'`;
-	con.query(query, (err, result, fields) => {
+									SET token=?, date_updated=NOW() 
+									WHERE email=?`;
+	con.query(query, [token, email], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
@@ -275,8 +280,8 @@ module.exports.forgotPasswordVerify = (req, res, next) => {
 	var token = req.params.token;
 
 	if (token) {
-		let query = `SELECT * FROM users WHERE token='${token}'`;
-		con.query(query, (err, result, fields) => {
+		let query = `SELECT * FROM users WHERE token=?`;
+		con.query(query, [token], (err, result, fields) => {
 			if (err) {
 				return next(err);
 			}
@@ -309,9 +314,9 @@ module.exports.resetPassword = (req, res, next) => {
 		const new_password = hash;
 
 		let query = `UPDATE users 
-									SET password='${new_password}', token='', date_updated=NOW() 
-									WHERE token='${token}'`;
-		con.query(query, (err, result, fields) => {
+									SET password=?, token='', date_updated=NOW() 
+									WHERE token=?`;
+		con.query(query, [new_password, token], (err, result, fields) => {
 			if (err) {
 				return next(err);
 			}

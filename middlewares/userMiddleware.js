@@ -40,8 +40,8 @@ module.exports.validationSignup = (req, res, next) => {
 // Check if record exists - Signup
 module.exports.isUserExistsSignup = (req, res, next) => {
 	console.log('🐞 isUserExistsSignup');
-	let query = `SELECT * FROM users WHERE email='${req.body.email}'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM users WHERE email=?`;
+	con.query(query, [req.body.email], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
@@ -157,8 +157,8 @@ module.exports.validationUpdateProfile = (req, res, next) => {
 // Check if record exists - Update
 module.exports.isUserExistsUpdate = (req, res, next) => {
 	console.log('🐞 isUserExistsUpdate');
-	let query = `SELECT * FROM users WHERE email='${req.body.email}' AND id<>'${req.user.id}'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM users WHERE email=? AND id<>?`;
+	con.query(query, [req.body.email, req.user.id], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
@@ -247,8 +247,8 @@ module.exports.isEmailRegistered = (req, res, next) => {
 	// validations here
 	console.log('🐞 isEmailRegistered');
 
-	let query = `SELECT * FROM users WHERE email='${req.body.email}'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM users WHERE email=?`;
+	con.query(query, [req.body.email], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
@@ -309,8 +309,8 @@ module.exports.isResetTokenValid = (req, res, next) => {
 	// validations here
 	console.log('🐞 isResetTokenValid');
 
-	let query = `SELECT * FROM users WHERE token='${req.body.token}'`;
-	con.query(query, (err, result, fields) => {
+	let query = `SELECT * FROM users WHERE token=?`;
+	con.query(query, [req.body.token], (err, result, fields) => {
 		if (err) {
 			return next(err);
 		}
