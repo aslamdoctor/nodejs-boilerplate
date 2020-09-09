@@ -1,6 +1,8 @@
 let yup = require('yup');
 const { con } = require('../db');
 
+// ========================================================================
+
 // Schema - Create
 let schemaCreate = yup.object().shape({
 	task: yup.string().required(),
@@ -16,35 +18,6 @@ module.exports.validationCreate = (req, res, next) => {
 	schemaCreate
 		.validate(
 			{
-				task: req.body.task,
-			},
-			{ abortEarly: false }
-		)
-		.then(function () {
-			next();
-		})
-		.catch(function (err) {
-			return next(err);
-		});
-};
-
-// Schema - Update
-let schemaUpdate = yup.object().shape({
-	id: yup.number().required(),
-	task: yup.string().required(),
-	picture: yup.string(),
-	status: yup.number().default(0),
-});
-
-// Validation - Update
-module.exports.validationUpdate = (req, res, next) => {
-	// validations here
-	console.log('🐞 validationUpdate');
-
-	schemaUpdate
-		.validate(
-			{
-				id: req.body.id,
 				task: req.body.task,
 			},
 			{ abortEarly: false }
@@ -75,6 +48,37 @@ module.exports.isTaskExistsCreate = (req, res, next) => {
 	});
 };
 
+// ========================================================================
+
+// Schema - Update
+let schemaUpdate = yup.object().shape({
+	id: yup.number().required(),
+	task: yup.string().required(),
+	picture: yup.string(),
+	status: yup.number().default(0),
+});
+
+// Validation - Update
+module.exports.validationUpdate = (req, res, next) => {
+	// validations here
+	console.log('🐞 validationUpdate');
+
+	schemaUpdate
+		.validate(
+			{
+				id: req.body.id,
+				task: req.body.task,
+			},
+			{ abortEarly: false }
+		)
+		.then(function () {
+			next();
+		})
+		.catch(function (err) {
+			return next(err);
+		});
+};
+
 // Check if record exists - Update
 module.exports.isTaskExistsUpdate = (req, res, next) => {
 	let query = `SELECT * FROM tasks WHERE task=? AND id<>?`;
@@ -92,6 +96,8 @@ module.exports.isTaskExistsUpdate = (req, res, next) => {
 		}
 	});
 };
+
+// ========================================================================
 
 // Schema - Delete
 let schemaDelete = yup.object().shape({
